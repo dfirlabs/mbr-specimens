@@ -1,2 +1,2 @@
-MBR volume system specimens.
+Master Boot Record (MBR) volume system specimens.
 
