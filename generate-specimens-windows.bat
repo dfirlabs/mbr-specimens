@@ -39,7 +39,7 @@ mkdir "%specimenspath%"
 
 rem Create a fixed-size VHD image with MBR with a single partition
 set unitsize=4096
-set imagename=mbr_single.vhd
+set imagename=mbr_primary.vhd
 set imagesize=64
 
 echo create vdisk file=%cd%\%specimenspath%\%imagename% maximum=%imagesize% type=fixed > CreateVHD.diskpart
@@ -47,6 +47,61 @@ echo select vdisk file=%cd%\%specimenspath%\%imagename% >> CreateVHD.diskpart
 echo attach vdisk >> CreateVHD.diskpart
 echo convert mbr >> CreateVHD.diskpart
 echo create partition primary >> CreateVHD.diskpart
+
+call :run_diskpart CreateVHD.diskpart
+
+echo select vdisk file=%cd%\%specimenspath%\%imagename% > UnmountVHD.diskpart
+echo detach vdisk >> UnmountVHD.diskpart
+
+call :run_diskpart UnmountVHD.diskpart
+
+rem Create a fixed-size VHD image with MBR with a single partition
+set unitsize=4096
+set imagename=mbr_logical.vhd
+set imagesize=64
+
+echo create vdisk file=%cd%\%specimenspath%\%imagename% maximum=%imagesize% type=fixed > CreateVHD.diskpart
+echo select vdisk file=%cd%\%specimenspath%\%imagename% >> CreateVHD.diskpart
+echo attach vdisk >> CreateVHD.diskpart
+echo convert mbr >> CreateVHD.diskpart
+echo create partition extended >> CreateVHD.diskpart
+echo create partition logical >> CreateVHD.diskpart
+
+call :run_diskpart CreateVHD.diskpart
+
+echo select vdisk file=%cd%\%specimenspath%\%imagename% > UnmountVHD.diskpart
+echo detach vdisk >> UnmountVHD.diskpart
+
+call :run_diskpart UnmountVHD.diskpart
+
+rem Create a fixed-size VHD image with MBR with a single partition
+set unitsize=4096
+set imagename=mbr_efi.vhd
+set imagesize=64
+
+echo create vdisk file=%cd%\%specimenspath%\%imagename% maximum=%imagesize% type=fixed > CreateVHD.diskpart
+echo select vdisk file=%cd%\%specimenspath%\%imagename% >> CreateVHD.diskpart
+echo attach vdisk >> CreateVHD.diskpart
+echo convert mbr >> CreateVHD.diskpart
+echo create partition efi >> CreateVHD.diskpart
+
+call :run_diskpart CreateVHD.diskpart
+
+echo select vdisk file=%cd%\%specimenspath%\%imagename% > UnmountVHD.diskpart
+echo detach vdisk >> UnmountVHD.diskpart
+
+call :run_diskpart UnmountVHD.diskpart
+
+rem Create a fixed-size VHD image with MBR with a single partition
+set unitsize=4096
+set imagename=mbr_msr.vhd
+set imagesize=64
+
+echo create vdisk file=%cd%\%specimenspath%\%imagename% maximum=%imagesize% type=fixed > CreateVHD.diskpart
+echo select vdisk file=%cd%\%specimenspath%\%imagename% >> CreateVHD.diskpart
+echo attach vdisk >> CreateVHD.diskpart
+echo convert mbr >> CreateVHD.diskpart
+echo create partition msr >> CreateVHD.diskpart
 
 call :run_diskpart CreateVHD.diskpart
 
