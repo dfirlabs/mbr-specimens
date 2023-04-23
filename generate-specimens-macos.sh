@@ -35,7 +35,7 @@ DEVICE_NUMBER=`diskutil list | grep -e '^/dev/disk' | tail -n 1 | sed 's?^/dev/d
 VOLUME_DEVICE_NUMBER=$(( ${DEVICE_NUMBER} + 1 ));
 
 # Create raw disk image with a MBR volume system
-IMAGE_NAME="apm";
+IMAGE_NAME="mbr";
 IMAGE_SIZE="4M";
 
 hdiutil create -fs 'HFS+' -layout 'MBRSPUD' -size ${IMAGE_SIZE} -type UDIF ${SPECIMENS_PATH}/${IMAGE_NAME};
